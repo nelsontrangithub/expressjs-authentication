@@ -2,16 +2,36 @@ var express = require("express");
 var router = express.Router();
 const MongooseStudentModel = require('../models/student')
 
-// list all students
-router.get("/", (req, res, next) => {
-    MongooseStudentModel.find({}, (err, data) => {
-        if (err) res.send(err);
-        res.render("index", { 
-            title: "List Students",
-            jsonData: data
-        });          
-    });
+// get home page
+router.get('/', ensureAuthenticated, function(req, res) {
+    res.render('index');
 });
+
+function ensureAuthenticated(req, res, next) {
+    if (req.isAuthenticated()) {
+        MongooseStudentModel.find({}, (err, data) => {
+            if (err) res.send(err);
+            res.render("index", { 
+                title: "List Students",
+                jsonData: data
+            });
+        });
+    } else {
+        req.flash('error_msg', "You are not logged in");
+        res.redirect('/users/login');
+    }
+}
+
+// list all students
+// router.get("/", (req, res, next) => {
+//     MongooseStudentModel.find({}, (err, data) => {
+//         if (err) res.send(err);
+//         res.render("index", { 
+//             title: "List Students",
+//             jsonData: data
+//         });          
+//     });
+// });
 
 // display create student form
 router.get("/create", (req, res, next) => {
