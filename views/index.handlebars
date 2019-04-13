@@ -1,2 +1,29 @@
-<h2 class="page-header">Home</h2>
-<p>Welcome to your dashboard</p>
+<div>
+    <div class="page-header">
+        <h1 class="text-info">{{title}}</h1>
+    </div>
+    <p><a href="/create" class="btn btn-success" >Add a student</a></p>
+    <table class="table table-bordered table-condensed">
+            <tr class="active">
+                <th>First</th>
+                <th>Last</th>
+                <th>School</th>
+                <th>Started</th>
+                <th></th>
+                <th></th>
+            </tr>
+            {{#jsonData}}
+            <tr>
+                <td>{{ FirstName }}</td>
+                <td>{{ LastName }}</td>
+                <td>{{ School }}</td>
+                <td>{{ StartDate }}</td>
+                <td><a href="/edit/{{_id}}" class="btn btn-primary btn-sm">EDIT</a></td>
+                <td><a href="/delete/{{_id}}" class="btn btn-primary btn-sm">DELETE</a></td>
+            </tr>
+            {{/jsonData}}
+    </table>
+    <a href="/api/students" class="btn btn-warning">Students API</a>
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Note: Try <a href="/dummydata">/dummydata</a> to generate some sample data.
+</div>
+{{!-- </script> --}}

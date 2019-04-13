@@ -32,11 +32,11 @@ mongoose.connect("mongodb://" + db_server + "/school", function (err) {
 });
 
 // View engine
-var ejsEngine = require("ejs-locals");
-app.engine("ejs", ejsEngine);           // support master pages
-app.set("view engine", "ejs");          // ejs view engine
-app.engine('handlebars', exphbs({defaultLayout: 'layout'}), "ejs", ejsEngine);
-app.set('view engine', 'handlebars', 'ejs');
+// var ejsEngine = require("ejs-locals");
+// app.engine("ejs", ejsEngine);           // support master pages
+// app.set("view engine", "ejs");          // ejs view engine
+app.engine('handlebars', exphbs({defaultLayout: 'layout'}));
+app.set('view engine', 'handlebars');
 
 // Set static folder
 app.use(express.static(path.join(__dirname, "client")));
